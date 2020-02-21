@@ -10,6 +10,7 @@ class Drink extends Model {
       },
       { sequelize }
     );
+    return this;
   }
 }
 

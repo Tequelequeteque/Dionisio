@@ -1,4 +1,4 @@
-version: '3.3'
+version: "3.3"
 services:
   db:
     container_name: dionisio_db
@@ -6,16 +6,15 @@ services:
     restart: always
     image: postgres:alpine
     ports: 
-      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+      - ${POSTGRES_PORT}:5432
+      - ${PORT}:${PORT}
   api:
     container_name: dionisio_api
     env_file: .env
     restart: always
-    network_mode: "host"
+    network_mode: "service:db"
     depends_on:
-      - db
+      - "db"
     build: .
-    ports:
-      - ${PORT}:${PORT}
     volumes:
       - .:/usr/api
