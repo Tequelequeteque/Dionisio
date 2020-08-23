@@ -7,14 +7,17 @@ services:
     image: postgres:alpine
     ports: 
       - ${POSTGRES_PORT}:5432
-      - ${PORT}:${PORT}
+      
   api:
     container_name: dionisio_api
     env_file: .env
     restart: always
-    network_mode: "service:db"
+    network_mode: "host"
     depends_on:
       - "db"
     build: .
     volumes:
-      - .:/usr/api
+      - .:/usr/
+    ports:
+      - ${PORT}:${PORT}
+
